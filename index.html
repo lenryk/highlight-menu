@@ -1,10 +1,6 @@
 <head>
     <style>
 
-        a {
-            background: transparent;
-        }
-
         .menu {
             background: url(https://ea.vox-cdn.com/production/polygon-ps4-review/images/notch-5d57d2e7.gif) repeat-y;
             font-family: "Arial";
@@ -17,7 +13,6 @@
             top: 100px;
             width: 80px;
             z-index: 49;
-
         }
 
         .menu li {
@@ -26,7 +21,6 @@
             line-height: 20px;
             margin: 20px 10px;
             opacity: .8;
-
             position: relative;
             -moz-transition: padding .3s, width .3s;
             -webkit-transition: padding .3s, width .3s;
@@ -107,14 +101,15 @@
             visibility: hidden;
         }
 
-   /*     .menu li.expanded {
-            padding: 2px 5px;
-            width: 180px
+       .menu li.expanded {
+            width: 200px;
+           padding:0px;
         }
 
         .menu li.expanded a {
-            visibility: visible
-        }*/
+            visibility: visible;
+            padding-left:5px;
+        }
 
         .menu li:before {
             content: "";
@@ -137,6 +132,11 @@
             width:500px;
             left:150px;
             position:relative;
+            background: #0081ad;
+        }
+
+        .container {
+            margin-top:500px;
         }
 
     </style>
@@ -144,21 +144,85 @@
 
 <div class="nav">
     <ul class="menu">
-        <li id="menu-intro" class="expanded">
+        <li id="menu-intro">
             <a href="#intro">INTRODUCTION</a>
         </li>
         <li id="menu-history">
             <a href="#history">HISTORY OF ADVERTISING</a>
         </li>
-        <li id="menu-birth" class="active">
+        <li id="menu-birth" class="">
             <a href="#google">THE BIRTH OF ADWORDS</a>
+        </li>
+        <li id="menu-ppc" class="">
+            <a href="#ppc">ALL ABOUT PPC</a>
+        </li>
+        <li id="menu-end" class="">
+            <a href="#end">CONCLUSION</a>
         </li>
     </ul>
 </div>
 
-<div class="content">
-    <section id="intro" class="content">Welcome to this content</section>
-    <section id="history" class="content">Lets start with PPC</section>
-    <section id="google" class="content">Google!</section>
-
+<div class="container">
+    <section id="intro" class="content">INTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTION</section>
+    <section id="history" class="content">HISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORY</section>
+    <section id="birth" class="content">ADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDS</section>
+    <section id="ppc" class="content">PPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPC</section>
+    <section id="end" class="content">CONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCO</section>
 </div>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+
+</script>
+<script src="waypoints.js"></script>
+<script src="inview.js"></script>
+<script>
+    // toggle click active
+    let btn = document.querySelectorAll(".menu li");
+    const sections = document.querySelectorAll("section");
+
+    btn.forEach((el,i) => {
+        let section = btn[i].id.replace("menu-","");
+        btn[i].addEventListener("click", () => {
+            btn.forEach((el,i) => {
+                btn[i].classList.remove("active");
+            });
+            btn[i].classList.add("active");
+            $('html, body').animate({scrollTop: $(`#${section}`).offset().top}, 450);  // smooth scrolling
+            console.log(section);
+        });
+    });
+
+ /*  $(".menu li").find("a").click((obj) => {
+        let id = obj.currentTarget.hash.replace("#","");
+       $(`.menu li ${id}`).addClass("active");
+       $(".menu li a").removeClass("active");
+       console.log(id);
+
+       console.log(obj);
+   });*/
+
+    // expand on section scroll
+   function createWaypoint(section,i) {
+       new Waypoint.Inview({
+           element: document.getElementById(`${section}`),
+           enter: function () {
+               btn.forEach((el, i) => {
+                   btn[i].classList.remove("expanded");
+                   btn[i].classList.remove("active");
+               });
+               btn[i].classList.add("expanded");
+               btn[i].classList.add("active");
+               setTimeout(() => {
+                   btn[i].classList.remove("expanded");
+               }, 2000);
+           }
+       });
+   }
+
+    sections.forEach((el,i) => {
+       createWaypoint(sections[i].id,i);
+   });
+
+</script>

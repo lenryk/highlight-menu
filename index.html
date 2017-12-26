@@ -151,7 +151,7 @@
             <a href="#history">HISTORY OF ADVERTISING</a>
         </li>
         <li id="menu-birth" class="">
-            <a href="#google">THE BIRTH OF ADWORDS</a>
+            <a href="#birth">THE BIRTH OF ADWORDS</a>
         </li>
         <li id="menu-ppc" class="">
             <a href="#ppc">ALL ABOUT PPC</a>
@@ -176,56 +176,42 @@
 
 </script>
 <script src="waypoints.js"></script>
-<script src="inview.js"></script>
 <script>
     // toggle click active
-    let btn = document.querySelectorAll(".menu li");
-    const sections = document.querySelectorAll("section");
+    let btn = $(".menu li"),
+        sections = $("section");
 
-    btn.forEach((el,i) => {
-        let section = btn[i].id.replace("menu-","");
-        $('html,body').stop(true,false);
-        btn[i].addEventListener("click", () => {
-            btn.forEach((el,i) => {
-                btn[i].classList.remove("active");
-            });
-            btn[i].classList.add("active");
-            Waypoint.disableAll();
-            $('html, body').animate({scrollTop: $(`#${section}`).offset().top}, {duration:300, complete: Waypoint.enableAll});  // smooth scrolling
-            console.log(section);
-        });
-    });
-    let expandTimeout = [];
-    // expand on section scroll
-   function createWaypoint(section,i) {
-       new Waypoint({
-           element: document.getElementById(`${section}`),
-           handler: function () {
-
-               if(expandTimeout) {
-                   expandTimeout.forEach((el) => {
-                       console.log(el);
-                       clearTimeout(el);
-                       expandTimeout.shift();
-                   });
-               }
-               btn.forEach((el, i) => {
-                   btn[i].classList.remove("expanded");
-                   btn[i].classList.remove("active");
-               });
-               btn[i].classList.add("expanded");
-               btn[i].classList.add("active");
-               expandTimeout.push(setTimeout(() => {
-                   btn[i].classList.remove("expanded");
-               }, 2000));
+    $(btn).click((el) => {
+       $(btn).removeClass("active");
+       el.currentTarget.classList.add("active");
+       let section = el.target.hash.replace("#","");
+       $('html, body').animate({scrollTop: $(`#${section}`).offset().top}, {duration:500, start:Waypoint.disableAll, complete: () => {
+               Waypoint.enableAll();
+               $('html, body').finish();
            }
-       });
-   }
+           });  // smooth scrolling
+    });
 
-    sections.forEach((el,i) => {
-       return createWaypoint(sections[i].id,i);
+    // expand on section scroll
+
+    $(sections).each((i,element) => {
+       new Waypoint({
+            element: $(element),
+            handler: function () {
+                $(btn).removeClass("active expanded");
+                $(btn[i]).addClass("expanded active");
+                setTimeout(() => {
+                    $(btn[i]).removeClass("expanded");
+                }, 1500);
+            },
+            offset: 100
+        });
    });
 
-   console.log(sections[sections.length]);
+    // reclaculate vaypoints on window resize
+    $(window).resize(() => {
+        Waypoint.refreshAll();
+        console.log("Recalcuated waypoints");
+    });
 
 </script>

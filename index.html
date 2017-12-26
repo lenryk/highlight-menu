@@ -102,7 +102,7 @@
         }
 
        .menu li.expanded {
-            width: 200px;
+           width: 200px;
            padding:0px;
         }
 
@@ -184,45 +184,48 @@
 
     btn.forEach((el,i) => {
         let section = btn[i].id.replace("menu-","");
+        $('html,body').stop(true,false);
         btn[i].addEventListener("click", () => {
             btn.forEach((el,i) => {
                 btn[i].classList.remove("active");
             });
             btn[i].classList.add("active");
-            $('html, body').animate({scrollTop: $(`#${section}`).offset().top}, 450);  // smooth scrolling
+            Waypoint.disableAll();
+            $('html, body').animate({scrollTop: $(`#${section}`).offset().top}, {duration:300, complete: Waypoint.enableAll});  // smooth scrolling
             console.log(section);
         });
     });
-
- /*  $(".menu li").find("a").click((obj) => {
-        let id = obj.currentTarget.hash.replace("#","");
-       $(`.menu li ${id}`).addClass("active");
-       $(".menu li a").removeClass("active");
-       console.log(id);
-
-       console.log(obj);
-   });*/
-
+    let expandTimeout = [];
     // expand on section scroll
    function createWaypoint(section,i) {
-       new Waypoint.Inview({
+       new Waypoint({
            element: document.getElementById(`${section}`),
-           enter: function () {
+           handler: function () {
+
+               if(expandTimeout) {
+                   expandTimeout.forEach((el) => {
+                       console.log(el);
+                       clearTimeout(el);
+                       expandTimeout.shift();
+                   });
+               }
                btn.forEach((el, i) => {
                    btn[i].classList.remove("expanded");
                    btn[i].classList.remove("active");
                });
                btn[i].classList.add("expanded");
                btn[i].classList.add("active");
-               setTimeout(() => {
+               expandTimeout.push(setTimeout(() => {
                    btn[i].classList.remove("expanded");
-               }, 2000);
+               }, 2000));
            }
        });
    }
 
     sections.forEach((el,i) => {
-       createWaypoint(sections[i].id,i);
+       return createWaypoint(sections[i].id,i);
    });
+
+   console.log(sections[sections.length]);
 
 </script>

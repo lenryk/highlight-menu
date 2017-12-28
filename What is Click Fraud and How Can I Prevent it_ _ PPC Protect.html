@@ -75,7 +75,6 @@
 			/*
 You can add your own CSS here. */
 
-
         .menu {
             background: url(https://ea.vox-cdn.com/production/polygon-ps4-review/images/notch-5d57d2e7.gif) repeat-y;
             font-family: "Arial";
@@ -85,10 +84,10 @@ You can add your own CSS here. */
             margin: 20px;
             padding:2px 0;
             position: sticky;
-            top: 100px;
+            top: 150px; /* change to adjust position while scrolling*/
             width: 80px;
+			margin-top:70px;   /*change to adjust starting top position*/
             z-index: 1;
-
 			float:left;
         }
 
@@ -206,55 +205,72 @@ You can add your own CSS here. */
 				}
 
 				.menu__mobile-menu-button {
-					display: block;
+					display: block !important;
 				}
 
 				.menu__mobile-menu {
-					display: block;
+					display: block !important;
 				}
 
 				.m-nav {
-					height: 44px;
+					height: 40px;
 					right: 0;
 					width: 100%;
 					z-index: 2;
 				}
+
+			}
+
+			@media screen and (min-width: 901px) {
+				.menu__mobile-menu {
+					width:0 !important;
+				}
 			}
 
 			.menu__mobile-menu {
-				font-family: 'Gotham SSm A',  'Gotham SSm B';
-				font-size: 15px;
+				font-family: "Arial";
 				font-weight: 200;
-				display: none;
+				display: block;
 				height: 100%;
-				overflow-y: scroll;
+				overflow-y: auto;
 				position: fixed;
-				top: 0;
+				top:70px;
 				transition: width .5s;
 				width: 0;
 				z-index: 2;
+				background: #009fd6;
+				padding-bottom:78px;
 			}
 
 			.menu__mobile-menu a {
 				color: #fff;
 				display: block;
 				text-decoration: none;
-				width: 300px;
+				position:relative;
+				width: 100%;
+				line-height: 2.5;
+				font-size: 15px;
 			}
 			.menu__mobile-menu ul {
 				list-style: none;
-				margin-top: 40px;
-				padding: 0;
+				right:0;
+				margin-left:0;
+				white-space: nowrap;
 			}
 
 			.menu__mobile-menu-button {
-				height: 44px;
+				height: 40px;
 				display: none;
-				left: 0px;
-				position: fixed;
-				top: 0px;
+				left: 50%;
+				position: absolute;
+				top: 0;
 				width: 3em;
 				z-index: 3;
+			}
+
+			.menu_mobile-open {
+				width:100%;
+				display: block;
 			}
 
 			.menu__mobile-menu ul {
@@ -269,33 +285,33 @@ You can add your own CSS here. */
 			.menu__mobile-menu ul li.active {
 				background: #0079a3;
 			}
-			.menu__mobile-menu.open {
-				display: block;
-				width: 100%
-			}
 
 			.menu__mobile-menu-button:before {
-				background: #fff;
+				background: red;
 				content: "";
 				height: 0.25em;
 				left: 10px;
 				position: absolute;
 				top: 10px;
 				width: 1.5em;
-				box-shadow: 0 0.5em 0 0 #fff,  0 1em 0 0 #fff;
+				box-shadow: 0 0.5em 0 0 red,  0 1em 0 0 red;   /*change for last 2 bars*/
 			}
 
-			/*blue drop down bar for mobile nav*/
+			.menu__mobile-menu li:hover {
+				background:#0081ad;
+			}
+
+			/*css for fixed bar on mobile at bottom*/
 
 			.m-nav {
-				font-family: 'Gotham SSm A',  'Gotham SSm B';
-				font-size: 14px;
-				font-weight: 300;
-				position: fixed;
-				right: 20px;
-				top: 0;
-				background: #009fd6;
-			}
+				 font-family: 'Gotham SSm A',  'Gotham SSm B';
+				 font-size: 14px;
+				 font-weight: 300;
+				 position: fixed;
+				 bottom:0;
+				 background: #009fd6;
+				 margin: auto;
+			 }
 
 			.m-nav a {
 				text-align: center;
@@ -303,7 +319,11 @@ You can add your own CSS here. */
 				text-transform: uppercase;
 			}
 
+			/*testing purposes*/
 
+			.et_monarch .et_social_heading {
+				display:none;
+			}
 
 /*
 
@@ -1264,6 +1284,43 @@ body.page-pricing section.content:nth-child(2)::after {
 
 
 		</div>
+<div class="menu__mobile-menu">
+	<ul>
+		<li id="mob-intro">
+			<a href="#intro">INTRODUCTION</a>
+		</li>
+		<li id="mob-history">
+			<a href="#history">HISTORY OF ADVERTISING</a>
+		</li>
+		<li id="mob-birth" class="">
+			<a href="#birth">THE BIRTH OF ADWORDS</a>
+		</li>
+		<li id="mob-ppc" class="">
+			<a href="#ppc">ALL ABOUT PPC</a>
+		</li>
+		<li id="mob-clickfraud" class="">
+			<a href="#clickfraud">CLICKFRAUD 101</a>
+		</li>
+		<li id="mob-responsible" class="">
+			<a href="#responsible">WHO'S RESPONSIBLE</a>
+		</li>
+		<li id="mob-affected" class="">
+			<a href="#affected">WHO'S AFFECTED</a>
+		</li>
+		<li id="mob-ppcnetworks" class="">
+			<a href="#ppcnetworks">PPC NETWORKS</a>
+		</li>
+		<li id="mob-legal" class="">
+			<a href="#legal">LEGALITY</a>
+		</li>
+		<li id="mob-identify" class="">
+			<a href="#identify">IDENTIFY FRAUD</a>
+		</li>
+		<li id="mob-conclusion" class="">
+			<a href="#conclusion">CONCLUSION</a>
+		</li>
+	</ul>
+</div>
 			<section class="content" role="main">
 
 					<ul class="menu">
@@ -1301,26 +1358,9 @@ body.page-pricing section.content:nth-child(2)::after {
 							<a href="#conclusion">CONCLUSION</a>
 						</li>
 					</ul>
-					<ul class="menu__mobile-menu">
-						<li id="menu-intro">
-							<a href="#intro">INTRODUCTION</a>
-						</li>
-						<li id="menu-history">
-							<a href="#history">HISTORY OF ADVERTISING</a>
-						</li>
-						<li id="menu-birth" class="">
-							<a href="#birth">THE BIRTH OF ADWORDS</a>
-						</li>
-						<li id="menu-ppc" class="">
-							<a href="#ppc">ALL ABOUT PPC</a>
-						</li>
-						<li id="menu-end" class="">
-							<a href="#end">CONCLUSION</a>
-						</li>
-					</ul>
-					<a href="#" class="menu__mobile-menu-button"></a>
 
-				<div class="m-nav"></div>
+
+				<div class="m-nav"><a href="#" class="menu__mobile-menu-button"> </a></div>
 				<div class="container">
 
 					<div class="row">
@@ -1878,7 +1918,12 @@ body.page-pricing section.content:nth-child(2)::after {
 <script>
     // toggle click active
     let btn = $(".menu li"),
-        sections = $("div#intro,div#history,div#birth,div#ppc,div#clickfraud,div#responsible,div#affected,div#ppcnetworks,div#legal,div#identify,div#conclusion");
+        sections = $("div#intro,div#history,div#birth,div#ppc,div#clickfraud,div#responsible,div#affected,div#ppcnetworks,div#legal,div#identify,div#conclusion"),
+		mobileButton = $(".menu__mobile-menu-button"),
+		mobileURLS = $(".menu__mobile-menu ul"),
+		navBarMain = $(".navbar-toggle");
+
+    // main logic for sidebar
 
     $(btn).click((el) => {
         $(btn).removeClass("active");
@@ -1886,6 +1931,21 @@ body.page-pricing section.content:nth-child(2)::after {
         let section = el.target.hash.replace("#","");
         $('html, body').stop(false,false).animate({scrollTop: $(`#${section}`).offset().top-88}, {duration:300, start:Waypoint.disableAll, complete: Waypoint.enableAll});  // smooth scrolling
     });
+
+    // JS for mobile menu
+
+	$(mobileButton).click((el) => {
+	    el.preventDefault();
+	    $(".menu__mobile-menu").toggleClass("menu_mobile-open");
+	});
+
+	$(mobileURLS).click(() => {
+        $(".menu__mobile-menu").toggleClass("menu_mobile-open");
+	});
+
+	$(navBarMain).click(() => {
+        $(".menu__mobile-menu").removeClass("menu_mobile-open");
+	});
 
     // expand on section scroll
 

@@ -121,11 +121,112 @@
             width: 6px
         }
 
-        @media (max-width: 700px) {
+        /*Mobile menu CSS*/
+
+        @media screen and (max-width: 700px) {
             .menu {
-                display: none
+                display: none;
+            }
+
+            .menu__mobile-menu-button {
+                display: block;
+            }
+
+            .menu__mobile-menu {
+                display: block;
+            }
+
+            .m-nav {
+                height: 44px;
+                right: 0;
+                width: 100%;
+                z-index: 2;
             }
         }
+
+        .menu__mobile-menu {
+            font-family: 'Gotham SSm A',  'Gotham SSm B';
+            font-size: 15px;
+            font-weight: 200;
+            display: none;
+            height: 100%;
+            overflow-y: scroll;
+            position: fixed;
+            top: 0;
+            transition: width .5s;
+            width: 0;
+            z-index: 2;
+        }
+
+        .menu__mobile-menu a {
+            color: #fff;
+            display: block;
+            text-decoration: none;
+            width: 300px;
+        }
+        .menu__mobile-menu ul {
+            list-style: none;
+            margin-top: 40px;
+            padding: 0;
+        }
+
+        .menu__mobile-menu-button {
+            height: 44px;
+            display: none;
+            left: 0px;
+            position: fixed;
+            top: 0px;
+            width: 3em;
+            z-index: 3;
+        }
+
+        .menu__mobile-menu ul {
+            background: #009fd6;
+        }
+
+        .menu__mobile-menu ul li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 20px;
+        }
+
+        .menu__mobile-menu ul li.active {
+            background: #0079a3;
+        }
+        .menu__mobile-menu.open {
+            display: block;
+            width: 100%
+        }
+
+        .menu__mobile-menu-button:before {
+             background: #fff;
+             content: "";
+             height: 0.25em;
+             left: 10px;
+             position: absolute;
+             top: 10px;
+             width: 1.5em;
+             box-shadow: 0 0.5em 0 0 #fff,  0 1em 0 0 #fff;
+         }
+
+        /*blue drop down bar for mobile nav*/
+
+        .m-nav {
+            font-family: 'Gotham SSm A',  'Gotham SSm B';
+            font-size: 14px;
+            font-weight: 300;
+            position: fixed;
+            right: 20px;
+            top: 0;
+            background: #009fd6;
+        }
+
+        .m-nav a {
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+
 
         .content {
             height:800px;
@@ -160,14 +261,35 @@
             <a href="#end">CONCLUSION</a>
         </li>
     </ul>
+    <ul class="menu__mobile-menu">
+        <li id="menu-intro">
+            <a href="#intro">INTRODUCTION</a>
+        </li>
+        <li id="menu-history">
+            <a href="#history">HISTORY OF ADVERTISING</a>
+        </li>
+        <li id="menu-birth" class="">
+            <a href="#birth">THE BIRTH OF ADWORDS</a>
+        </li>
+        <li id="menu-ppc" class="">
+            <a href="#ppc">ALL ABOUT PPC</a>
+        </li>
+        <li id="menu-end" class="">
+            <a href="#end">CONCLUSION</a>
+        </li>
+    </ul>
+    <a href="#" class="menu__mobile-menu-button"></a>
+</div>
+<div class="m-nav">
+
 </div>
 
 <div class="container">
-    <section id="intro" class="content">INTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTION</section>
-    <section id="history" class="content">HISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORY</section>
-    <section id="birth" class="content">ADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDS</section>
-    <section id="ppc" class="content">PPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPC</section>
-    <section id="end" class="content">CONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCO</section>
+    <div id="intro" class="content">INTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTIONINTRODUCTION</div>
+    <div id="history" class="content">HISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORYHISTORY</div>
+    <div id="birth" class="content">ADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDSADWORDS</div>
+    <div id="ppc" class="content">PPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPCPPC</div>
+    <div id="end" class="content">CONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCONCLUSIONCO</div>
 </div>
 <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -179,17 +301,13 @@
 <script>
     // toggle click active
     let btn = $(".menu li"),
-        sections = $("section");
+        sections = $("div#intro,div#history,div#birth,div#ppc,div#end");
 
     $(btn).click((el) => {
        $(btn).removeClass("active");
        el.currentTarget.classList.add("active");
        let section = el.target.hash.replace("#","");
-       $('html, body').animate({scrollTop: $(`#${section}`).offset().top}, {duration:500, start:Waypoint.disableAll, complete: () => {
-               Waypoint.enableAll();
-               $('html, body').finish();
-           }
-           });  // smooth scrolling
+       $('html, body').stop(false,false).animate({scrollTop: $(`#${section}`).offset().top}, {duration:300, start:Waypoint.disableAll, complete: Waypoint.enableAll});  // smooth scrolling
     });
 
     // expand on section scroll
